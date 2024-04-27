@@ -1,0 +1,6 @@
+# Ignore artifacts:
+build
+coverage
+.expo
+package-lock.json
+package.json
