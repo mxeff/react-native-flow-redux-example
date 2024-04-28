@@ -2,6 +2,8 @@ import { useFonts } from 'expo-font';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Navigation from './src/components/navigation/navigation';
+import { participants } from './data/participants';
+import Participant from './src/components/participant/participant';
 
 export default function App() {
     const [areFontsLoaded, fontError] = useFonts({
@@ -18,7 +20,12 @@ export default function App() {
             <ScrollView stickyHeaderIndices={[0]}>
                 <Navigation />
                 <View>
-                    <Text>Open up App.js to start working on your app!</Text>
+                    {participants.map((props) => (
+                        <Participant
+                            key={props.id}
+                            {...props}
+                        />
+                    ))}
                 </View>
             </ScrollView>
             <StatusBar style="auto" />
