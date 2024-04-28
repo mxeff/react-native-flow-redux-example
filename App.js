@@ -1,20 +1,35 @@
+import { useFonts } from 'expo-font';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
+import Navigation from './src/components/navigation/navigation';
 
 export default function App() {
+    const [areFontsLoaded, fontError] = useFonts({
+        'Verdana-Bold': require('./assets/fonts/Verdana-Bold.ttf'),
+        Verdana: require('./assets/fonts/Verdana.ttf'),
+    });
+
+    if (!areFontsLoaded && !fontError) {
+        return null;
+    }
+
     return (
-        <View style={styles.container}>
-            <Text>Open up App.js to start working on your app!</Text>
+        <SafeAreaView style={styles.view}>
+            <ScrollView stickyHeaderIndices={[0]}>
+                <Navigation />
+                <View>
+                    <Text>Open up App.js to start working on your app!</Text>
+                </View>
+            </ScrollView>
             <StatusBar style="auto" />
-        </View>
+        </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
+    view: {
         flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
+        fontFamily: 'Verdana',
+        backgroundColor: '#222222',
     },
 });
