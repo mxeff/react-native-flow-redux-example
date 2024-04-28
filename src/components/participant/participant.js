@@ -11,6 +11,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: 'rgba(7, 45, 82, 0.9)',
         padding: 10,
+        borderBottomColor: 'rgba(10, 65, 120, 0.9)',
+        borderBottomWidth: 2,
     },
     text: {
         color: 'white',
@@ -49,7 +51,7 @@ const Participant = ({ country, icon, id, index, isActive, name, title }: Props 
     return (
         <View style={[styles.view, isActive && styles.isActive]}>
             <Text style={[styles.text, styles.position]}>{(index + 1).toString().padStart(2, '0')}</Text>
-            <Text style={[styles.text, styles.startingPosition]}>{id.toString().padStart(2, '0')}</Text>
+            <Text style={[styles.text, styles.startingPosition]}>#{id.toString().padStart(2, '0')}</Text>
             <Text style={[styles.text, styles.icon]}>{icon}</Text>
             <View style={styles.titleAndName}>
                 <Text

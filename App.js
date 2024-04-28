@@ -1,17 +1,15 @@
 // @flow
-
 import { useFonts } from 'expo-font';
 import { StatusBar } from 'expo-status-bar';
-import { SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
-import Navigation from './src/components/navigation/navigation';
-import { participants } from './data/participants';
-import Participant from './src/components/participant/participant';
-import { useState } from 'react';
-import type { PressEvent } from 'react-native/Libraries/Types/CoreEventTypes';
+import { SafeAreaView, StatusBar as ReactNativeStatusBar, StyleSheet, View } from 'react-native';
+import Navigation from './src/components/navigation-container/navigation-container';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Text from './src/components/text/text';
-
-import DraggableFlatList, { ScaleDecorator } from 'react-native-draggable-flatlist';
+import TippScreen from './src/screens/tipp/tipp-screen';
+import NavigationContainer from './src/components/navigation-container/navigation-container';
+import TasteScreen from './src/screens/taste/taste-screen';
+import Navigator from './src/components/navigator/navigator';
+import { Tab } from './src/components/navigator/navigator';
 
 export default function App(): React$Element<any> | null {
     const [areFontsLoaded, fontError] = useFonts({
@@ -19,52 +17,27 @@ export default function App(): React$Element<any> | null {
         Verdana: require('./assets/fonts/Verdana.ttf'),
     });
 
-    const [data, setData] = useState(participants);
-
     if (!areFontsLoaded && !fontError) {
         return null;
     }
 
-    const renderItem = ({
-        drag,
-        getIndex,
-        isActive,
-        item,
-    }: {
-        drag: (event: PressEvent) => mixed,
-        getIndex: () => ?number,
-        isActive: boolean,
-        item: any,
-    }) => {
-        return (
-            <ScaleDecorator>
-                <TouchableOpacity
-                    onLongPress={drag}
-                    disabled={isActive}
-                >
-                    <Participant
-                        key={item.id}
-                        {...item}
-                        isActive={isActive}
-                        index={getIndex()}
-                    />
-                </TouchableOpacity>
-            </ScaleDecorator>
-        );
-    };
-
     return (
         <GestureHandlerRootView style={{ flex: 1 }}>
-            <SafeAreaView style={styles.view}>
-                <Navigation />
-                <DraggableFlatList
-                    data={data}
-                    onDragEnd={({ data }) => setData(data)}
-                    keyExtractor={(item) => item.id}
-                    renderItem={renderItem}
-                />
-                <StatusBar style="auto" />
-            </SafeAreaView>
+            <NavigationContainer>
+                <SafeAreaView style={styles.view}>
+                    <Navigator>
+                        <Tab.Screen
+                            name={'Tipp'}
+                            component={TippScreen}
+                        />
+                        <Tab.Screen
+                            name={'Taste'}
+                            component={TasteScreen}
+                        />
+                    </Navigator>
+                    <StatusBar style="inverted" />
+                </SafeAreaView>
+            </NavigationContainer>
         </GestureHandlerRootView>
     );
 }
@@ -73,5 +46,6 @@ const styles = StyleSheet.create({
     view: {
         flex: 1,
         backgroundColor: '#222222',
+        paddingTop: ReactNativeStatusBar.currentHeight,
     },
 });
