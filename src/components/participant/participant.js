@@ -1,8 +1,8 @@
 // @flow
 
 import type { Participant as TParticipant } from '../../../data/participants';
-
-import { Dimensions, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, StyleSheet, View } from 'react-native';
+import Text from '../text/text';
 
 const styles = StyleSheet.create({
     view: {
@@ -15,8 +15,11 @@ const styles = StyleSheet.create({
     text: {
         color: 'white',
     },
-    startingPosition: {
+    position: {
         fontSize: 30,
+        marginRight: 10,
+    },
+    startingPosition: {
         opacity: 0.5,
         marginRight: 10,
     },
@@ -32,11 +35,20 @@ const styles = StyleSheet.create({
     name: {
         fontSize: 12,
     },
+    isActive: {
+        backgroundColor: 'rgba(10, 65, 120, 0.9)',
+    },
 });
 
-const Participant = ({ country, icon, id, name, title }: TParticipant): React$Element<any> => {
+interface Props {
+    index: number;
+    isActive: boolean;
+}
+
+const Participant = ({ country, icon, id, index, isActive, name, title }: Props & TParticipant): React$Element<any> => {
     return (
-        <View style={styles.view}>
+        <View style={[styles.view, isActive && styles.isActive]}>
+            <Text style={[styles.text, styles.position]}>{(index + 1).toString().padStart(2, '0')}</Text>
             <Text style={[styles.text, styles.startingPosition]}>{id.toString().padStart(2, '0')}</Text>
             <Text style={[styles.text, styles.icon]}>{icon}</Text>
             <View style={styles.titleAndName}>
