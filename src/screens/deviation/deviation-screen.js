@@ -2,6 +2,8 @@
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import Text from '../../components/text/text';
 import { flex } from 'deprecated-react-native-prop-types/DeprecatedLayoutPropTypes';
+import { useSelector } from 'react-redux';
+import { resultSlice, tasteSlice, tipSlice } from '../../store/store';
 
 const styles = StyleSheet.create({
     view: {
@@ -39,6 +41,22 @@ const styles = StyleSheet.create({
 });
 
 const DeviationScreen = (): React$Element<any> => {
+    const results = useSelector(resultSlice.selectors.selectItems);
+    const taste = useSelector(tasteSlice.selectors.selectItems);
+    const tip = useSelector(tipSlice.selectors.selectItems);
+
+    const tipDeviation = tip.reduce((previousValue, currentValue, index) => {
+        previousValue += Math.abs(index - results.findIndex((value) => value === currentValue));
+
+        return previousValue;
+    }, 0);
+
+    const tasteDeviation = taste.reduce((previousValue, currentValue, index) => {
+        previousValue += Math.abs(index - results.findIndex((value) => value === currentValue));
+
+        return previousValue;
+    }, 0);
+
     return (
         <View style={styles.view}>
             <Text style={styles.headline}>Abweichungen</Text>
@@ -46,24 +64,24 @@ const DeviationScreen = (): React$Element<any> => {
             <View style={styles.table}>
                 <View style={styles.row}>
                     <Text style={styles.column}>Insgesamt</Text>
-                    <Text style={styles.column}>0</Text>
+                    <Text style={styles.column}>{tipDeviation}</Text>
                 </View>
 
                 <View style={styles.row}>
-                    <Text style={styles.column}>Durchschnitt (/ 25)</Text>
-                    <Text style={styles.column}>0</Text>
+                    <Text style={styles.column}>Durchschnitt (Insgesamt / 25)</Text>
+                    <Text style={styles.column}>{tipDeviation / 25}</Text>
                 </View>
             </View>
             <Text style={styles.subheadline}>Taste</Text>
             <View style={styles.table}>
                 <View style={styles.row}>
                     <Text style={styles.column}>Insgesamt</Text>
-                    <Text style={styles.column}>0</Text>
+                    <Text style={styles.column}>{tasteDeviation}</Text>
                 </View>
 
                 <View style={styles.row}>
-                    <Text style={styles.column}>Durchschnitt (/ 25)</Text>
-                    <Text style={styles.column}>0</Text>
+                    <Text style={styles.column}>Durchschnitt (Insgesamt / 25)</Text>
+                    <Text style={styles.column}>{tasteDeviation / 25}</Text>
                 </View>
             </View>
         </View>
