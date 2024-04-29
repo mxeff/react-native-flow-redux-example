@@ -2,6 +2,7 @@
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import Text from '../../components/text/text';
 import { flex } from 'deprecated-react-native-prop-types/DeprecatedLayoutPropTypes';
+import { createSelector } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
 import { resultSlice, tasteSlice, tipSlice } from '../../store/store';
 
@@ -40,22 +41,29 @@ const styles = StyleSheet.create({
     },
 });
 
+const selectTipDeviation = createSelector(
+    [tipSlice.selectors.selectItems, resultSlice.selectors.selectItems],
+    (tip, results) =>
+        tip.reduce((previousValue, currentValue, index) => {
+            previousValue += Math.abs(index - results.findIndex((value) => value === currentValue));
+
+            return previousValue;
+        }, 0),
+);
+
+const selectTasteDeviation = createSelector(
+    [tasteSlice.selectors.selectItems, resultSlice.selectors.selectItems],
+    (taste, results) =>
+        taste.reduce((previousValue, currentValue, index) => {
+            previousValue += Math.abs(index - results.findIndex((value) => value === currentValue));
+
+            return previousValue;
+        }, 0),
+);
+
 const DeviationScreen = (): React$Element<any> => {
-    const results = useSelector(resultSlice.selectors.selectItems);
-    const taste = useSelector(tasteSlice.selectors.selectItems);
-    const tip = useSelector(tipSlice.selectors.selectItems);
-
-    const tipDeviation = tip.reduce((previousValue, currentValue, index) => {
-        previousValue += Math.abs(index - results.findIndex((value) => value === currentValue));
-
-        return previousValue;
-    }, 0);
-
-    const tasteDeviation = taste.reduce((previousValue, currentValue, index) => {
-        previousValue += Math.abs(index - results.findIndex((value) => value === currentValue));
-
-        return previousValue;
-    }, 0);
+    const tipDeviation = useSelector(selectTipDeviation);
+    const tasteDeviation = useSelector(selectTasteDeviation);
 
     return (
         <View style={styles.view}>
