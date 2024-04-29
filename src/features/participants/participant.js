@@ -2,7 +2,7 @@
 
 import type { Participant as TParticipant } from '../../../data/participants';
 import { Dimensions, StyleSheet, View } from 'react-native';
-import Text from '../text/text';
+import Text from '../../components/text/text';
 
 const styles = StyleSheet.create({
     view: {

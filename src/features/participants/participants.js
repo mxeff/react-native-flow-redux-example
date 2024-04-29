@@ -4,9 +4,9 @@ import DraggableFlatList, { ScaleDecorator } from 'react-native-draggable-flatli
 import { participants } from '../../../data/participants';
 import type { PressEvent } from 'react-native/Libraries/Types/CoreEventTypes';
 import { TouchableOpacity } from 'react-native';
-import Participant from '../../components/participant/participant';
+import Participant from '../../features/participants/participant';
 
-const TippScreen = (): React$Element<any> => {
+const Participants = (): React$Element<any> => {
     const [data, setData] = useState(participants);
 
     const renderItem = ({
@@ -52,4 +52,4 @@ const TippScreen = (): React$Element<any> => {
     );
 };
 
-export default TippScreen;
+export default Participants;

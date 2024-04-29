@@ -1,8 +1,8 @@
 // @flow
 import Participants from '../../features/participants/participants';
 
-const TasteScreen = (): React$Element<any> => {
+const ResultsScreen = (): React$Element<any> => {
     return <Participants />;
 };
 
-export default TasteScreen;
+export default ResultsScreen;
