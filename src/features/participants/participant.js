@@ -1,5 +1,4 @@
 // @flow
-
 import type { Participant as TParticipant } from '../../../data/participants';
 import { Dimensions, StyleSheet, View } from 'react-native';
 import Text from '../../components/text/text';
@@ -47,7 +46,15 @@ interface Props {
     isActive: boolean;
 }
 
-const Participant = ({ country, icon, id, index, isActive, name, title }: Props & TParticipant): React$Element<any> => {
+const Participant = ({
+    country,
+    icon,
+    id,
+    index,
+    isActive,
+    name,
+    title,
+}: Props & TParticipant): React$Element<typeof View> => {
     return (
         <View style={[styles.view, isActive && styles.isActive]}>
             <Text style={[styles.text, styles.position]}>{(index + 1).toString().padStart(2, '0')}</Text>

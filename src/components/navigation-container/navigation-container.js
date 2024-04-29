@@ -5,7 +5,7 @@ interface Props {
     children?: ?React$Element<any>;
 }
 
-const NavigationContainer = (props: Props): React$Element<any> => {
+const NavigationContainer = (props: Props): React$Element<typeof ReactNativeNavigationContainer> => {
     return (
         <ReactNativeNavigationContainer
             theme={{

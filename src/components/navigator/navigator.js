@@ -10,7 +10,7 @@ interface Props {
     children: ?React$Node;
 }
 
-const Navigator = (props: Props): React$Element<any> => {
+const Navigator = (props: Props): React$Element<typeof Tab.Navigator> => {
     return (
         <Tab.Navigator
             screenOptions={{

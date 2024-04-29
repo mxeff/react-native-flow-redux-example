@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import participantsReducer, { createParticipantsSlice } from '../features/participants/participantsSlice';
+import { createParticipantsSlice } from '../features/participants/participantsSlice';
 
 export const tipSlice = createParticipantsSlice('tip');
 export const tasteSlice = createParticipantsSlice('taste');

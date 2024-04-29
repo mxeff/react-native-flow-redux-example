@@ -7,14 +7,13 @@ import type { PressEvent } from 'react-native/Libraries/Types/CoreEventTypes';
 import { TouchableOpacity } from 'react-native';
 import Participant from '../../features/participants/participant';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectParticipants, setParticipants } from './participantsSlice';
 
 interface Props {
-    onDragEnd: (data: Array<TParticipant>) => void;
+    onDragEnd: (data: { data: Array<TParticipant> }) => void;
     data: Array<TParticipant>;
 }
 
-const Participants = ({ data, onDragEnd }: Props): React$Element<any> => {
+const Participants = ({ data, onDragEnd }: Props): React$Element<typeof DraggableFlatList> => {
     const renderItem = ({
         drag,
         getIndex,

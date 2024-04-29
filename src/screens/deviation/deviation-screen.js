@@ -61,7 +61,7 @@ const selectTasteDeviation = createSelector(
         }, 0),
 );
 
-const DeviationScreen = (): React$Element<any> => {
+const DeviationScreen = (): React$Element<typeof View> => {
     const tipDeviation = useSelector(selectTipDeviation);
     const tasteDeviation = useSelector(selectTasteDeviation);
 

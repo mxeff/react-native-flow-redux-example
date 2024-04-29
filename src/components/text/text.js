@@ -1,5 +1,4 @@
 // @flow
-
 import type { PropsOf } from 'react';
 import { Text as ReactNativeText } from 'react-native';
 import StyleSheet from 'react-native/Libraries/StyleSheet/StyleSheet';
@@ -10,7 +9,7 @@ const styles = StyleSheet.create({
     },
 });
 
-const Text = (props: PropsOf<ReactNativeText>): React$Element<any> => {
+const Text = (props: PropsOf<ReactNativeText>): React$Element<typeof ReactNativeText> => {
     return <ReactNativeText style={[props.style, styles.text]}>{props.children}</ReactNativeText>;
 };
 
