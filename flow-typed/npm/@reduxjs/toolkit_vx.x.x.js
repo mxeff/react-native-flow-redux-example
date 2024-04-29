@@ -14,7 +14,19 @@
  */
 
 declare module '@reduxjs/toolkit' {
-  declare module.exports: any;
+  declare export const createSelector: any;
+
+  declare export function createSlice<
+    S: {...},
+    T: {[string]: (state: S, action: { payload: any }) => void},
+  >({
+    name: string,
+    initialState: S,
+    reducers: T,
+  }): {
+    actions: {[key in $Keys<T>]: (state: S) => void},
+    reducer: (state: S) => S,
+  };
 }
 
 /**

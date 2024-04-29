@@ -3,7 +3,11 @@ import type { Participant } from '../../../data/participants';
 import { participants } from '../../../data/participants';
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
+type State = {
+    items: Array<Participant>,
+};
+
+const initialState: State = {
     items: participants,
 };
 
@@ -12,7 +16,7 @@ export const createParticipantsSlice = (name: string): any => {
         name,
         initialState,
         reducers: {
-            setItems: (state, action) => {
+            setItems: (state: State, action: any) => {
                 state.items = action.payload;
             },
         },
