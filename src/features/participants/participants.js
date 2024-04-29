@@ -2,13 +2,19 @@
 import { useState } from 'react';
 import DraggableFlatList, { ScaleDecorator } from 'react-native-draggable-flatlist';
 import { participants } from '../../../data/participants';
+import type { Participant as TParticipant } from '../../../data/participants';
 import type { PressEvent } from 'react-native/Libraries/Types/CoreEventTypes';
 import { TouchableOpacity } from 'react-native';
 import Participant from '../../features/participants/participant';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectParticipants, setParticipants } from './participantsSlice';
 
-const Participants = (): React$Element<any> => {
-    const [data, setData] = useState(participants);
+interface Props {
+    onDragEnd: (data: Array<TParticipant>) => void;
+    data: Array<TParticipant>;
+}
 
+const Participants = ({ data, onDragEnd }: Props): React$Element<any> => {
     const renderItem = ({
         drag,
         getIndex,
@@ -45,7 +51,7 @@ const Participants = (): React$Element<any> => {
                 backgroundColor: '#222222',
             }}
             data={data}
-            onDragEnd={({ data }) => setData(data)}
+            onDragEnd={onDragEnd}
             keyExtractor={(item) => item.id}
             renderItem={renderItem}
         />

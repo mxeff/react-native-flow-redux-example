@@ -12,6 +12,8 @@ import Navigator from './src/components/navigator/navigator';
 import { Tab } from './src/components/navigator/navigator';
 import DeviationScreen from './src/screens/deviation/deviation-screen';
 import ResultsScreen from './src/screens/results/results-screen';
+import { Provider } from 'react-redux';
+import { store } from './src/store/store';
 
 export default function App(): React$Element<any> | null {
     const [areFontsLoaded, fontError] = useFonts({
@@ -24,31 +26,33 @@ export default function App(): React$Element<any> | null {
     }
 
     return (
-        <GestureHandlerRootView style={{ flex: 1 }}>
-            <NavigationContainer>
-                <SafeAreaView style={styles.view}>
-                    <Navigator>
-                        <Tab.Screen
-                            name={'Tipp'}
-                            component={TipScreen}
-                        />
-                        <Tab.Screen
-                            name={'Taste'}
-                            component={TasteScreen}
-                        />
-                        <Tab.Screen
-                            name={'Ergebnis'}
-                            component={ResultsScreen}
-                        />
-                        <Tab.Screen
-                            name={'Abweichung'}
-                            component={DeviationScreen}
-                        />
-                    </Navigator>
-                    <StatusBar style="inverted" />
-                </SafeAreaView>
-            </NavigationContainer>
-        </GestureHandlerRootView>
+        <Provider store={store}>
+            <GestureHandlerRootView style={{ flex: 1 }}>
+                <NavigationContainer>
+                    <SafeAreaView style={styles.view}>
+                        <Navigator>
+                            <Tab.Screen
+                                name={'Tipp'}
+                                component={TipScreen}
+                            />
+                            <Tab.Screen
+                                name={'Taste'}
+                                component={TasteScreen}
+                            />
+                            <Tab.Screen
+                                name={'Ergebnis'}
+                                component={ResultsScreen}
+                            />
+                            <Tab.Screen
+                                name={'Abweichung'}
+                                component={DeviationScreen}
+                            />
+                        </Navigator>
+                        <StatusBar style="inverted" />
+                    </SafeAreaView>
+                </NavigationContainer>
+            </GestureHandlerRootView>
+        </Provider>
     );
 }
 
