@@ -23,6 +23,7 @@ const Navigator = (props: Props): React$Element<any> => {
                 tabBarLabelPosition: 'beside-icon',
                 tabBarLabelStyle: {
                     color: 'white',
+                    position: 'absolute',
                 },
                 tabBarStyle: {
                     backgroundColor: '#222222',
